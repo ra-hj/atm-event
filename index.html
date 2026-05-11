@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>환갑 축하 ATM</title>
+    <link rel="stylesheet" href="style.css?ver=0.1">
+</head>
+<body>
+    <div class="atm-container">
+        
+        <!-- STEP 1: 메인 화면 -->
+        <section id="step-1" class="screen active">
+            <div class="display-area">
+                <h1>종근은행</h1>
+                <p>아버님의 60번째 생신을 진심으로 축하드립니다.<br>출금을 위해 아래 버튼을 눌러주세요.</p>
+            </div>
+            <button class="main-btn" onclick="nextStep(2)">이체/출금 하기</button>
+        </section>
+
+        <!-- STEP 2: 약관 동의 -->
+        <section id="step-2" class="screen">
+            <div class="display-area">
+                <h2>서비스 이용 동의</h2>
+                <div class="terms-box">
+                    <p>1. 평생 효도권을 무상으로 제공함에 동의하십니까?</p>
+                    <p>2. 앞으로도 건강하고 행복할 것을 약속하십니까?</p>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button class="sub-btn" onclick="nextStep(3)">동의함</button>
+                <button class="sub-btn secondary" onclick="alert('동의하셔야 다음으로 넘어갑니다!')">비동의</button>
+            </div>
+        </section>
+
+        <!-- STEP 3: 카드 삽입 안내 -->
+        <section id="step-3" class="screen">
+            <div class="display-area">
+                <h2>카드를 투입구에 넣어주세요</h2>
+                <div class="card-icon">💳</div>
+                <p class="blink">IC카드를 인식 대기 중입니다...</p>
+            </div>
+            <!-- 실제 박스에 카드를 꽂는 시간을 벌기 위해 버튼을 배치하거나 setTimeout을 씁니다 -->
+            <button class="main-btn" onclick="nextStep(4)">카드 인식 완료</button>
+        </section>
+
+        <!-- STEP 4: 비밀번호 입력 -->
+        <section id="step-4" class="screen">
+            <div class="display-area">
+                <h2 id="message">비밀번호 4자리를 입력하세요</h2>
+                <div class="password-dots">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+            <div class="keypad">
+                <button onclick="pressKey(1)">1</button>
+                <button onclick="pressKey(2)">2</button>
+                <button onclick="pressKey(3)">3</button>
+                <button onclick="pressKey(4)">4</button>
+                <button onclick="pressKey(5)">5</button>
+                <button onclick="pressKey(6)">6</button>
+                <button onclick="pressKey(7)">7</button>
+                <button onclick="pressKey(8)">8</button>
+                <button onclick="pressKey(9)">9</button>
+                <button class="clear" onclick="clearKeys()">취소</button>
+                <button onclick="pressKey(0)">0</button>
+                <button class="enter" onclick="checkPassword()">확인</button>
+            </div>
+        </section>
+
+        <!-- STEP 5: 최종 축하 화면 -->
+        <section id="step-5" class="screen">
+            <div class="display-area">
+                <h1>🎊 출금 성공! 🎊</h1>
+                <div class="final-message">
+                    <p>아빠, 환갑 축하드려요!</p>
+                    <p>지금 바로 하단 투입구를 확인해 보세요.</p>
+                    <h2 class="amount-text">금액: 사랑 100% + 용돈 가득</h2>
+                </div>
+            </div>
+            <button class="main-btn" onclick="location.reload()">처음으로</button>
+        </section>
+    </div>
+</body>
+    <script src="script.js"></script>
+</html>

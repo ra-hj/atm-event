@@ -1,0 +1,83 @@
+body {
+    margin: 0;
+    background-color: #1a1a1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Apple SD Gothic Neo', sans-serif;
+    overflow: hidden;
+}
+
+.atm-container {
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.screen {
+    background: #2d2d2d;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+    margin-bottom: 30px;
+    color: white;
+}
+
+.password-dots {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.dot {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #aaa;
+    border-radius: 50%;
+}
+
+.dot.active {
+    background-color: #00ff00;
+    border-color: #00ff00;
+}
+
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+button {
+    height: 80px;
+    font-size: 24px;
+    border-radius: 15px;
+    border: none;
+    background: #3d3d3d;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:active {
+    background: #555;
+}
+
+.clear { background: #ff4d4d; }
+.enter { background: #4caf50; }
+
+/* 모든 화면은 기본적으로 숨김 */
+.screen {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* active 클래스가 붙은 화면만 노출 */
+.screen.active {
+    display: flex;
+}
