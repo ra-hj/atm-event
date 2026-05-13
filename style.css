@@ -1,47 +1,61 @@
-body {
-    margin: 0;
-    background-color: #1a1a1a;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-family: 'Apple SD Gothic Neo', sans-serif;
-    overflow: hidden;
+@import url(./Paperlogy.css);
+
+* {font-family: 'Paperlogy', 'Apple SD Gothic Neo', sans-serif; box-sizing:border-box; }
+h1, h2, p {margin:0; padding:0;}
+ul {margin:0; padding:0; list-style:none;}
+button {margin:0; padding:0; border:none;}
+html, body {margin: 0; padding: 0; overflow: hidden; width:100%; height:100%; touch-action:manipulation; overscroll-behavior:none; background:#fff;}
+.wrap {overflow: hidden; margin:0 auto; position: relative; width:100vw; height:100vh; min-width:320px;}
+.atm_container {display:flex; justify-content:center; align-items:flex-center;}
+.screen {display:none;}
+.screen.active {display: flex; flex-direction: column; justify-content: center; align-items: center; width:100%; height:100vh;}
+
+header {position:absolute; top:80px; right:5%;}
+.logo {text-indent:-9999px; width:180px; background:url(./images/logo.png) no-repeat 50% 50% / cover;}
+
+
+/* 01. 메인 */
+.main_title {display:flex; flex-direction:column; gap:25px;}
+.main_title h2{font-size:60px; font-weight:300; color:#222; text-align:center;}
+.main_title h2 strong{display:inline-block; font-size:1.25em; font-weight:600; color:#0D0B61; animation: bounce 2.5s ease-in-out infinite;-webkit-font-smoothing:antialiased;}
+.main_title p{text-align:center; color:#555; font-size:22px; font-weight:400; line-height:30px;}
+.main_btn {margin-top:150px; padding:20px 0; width:50%; border-radius:10px; background:linear-gradient(270deg,rgba(13, 11, 97, 1) 0%, rgba(0, 60, 143, 1) 100%); box-shadow: 0px 5px 15px -3px #d8d8d8; font-size:32px; color:#fff; transition:0.1s;}
+.main_btn:active{transform:scale(0.98);}
+.notice{margin-top:80px; display:flex; flex-direction:row; gap:30px;}
+.notice li{font-size:20px; color:#555; font-weight:400;}
+.notice li:before{content:""; display:inline-block; margin-right:10px; width:20px; height:20px; background:url(./images/icon_check.png) no-repeat 50% 50% / cover;}
+
+/* 02. 본인 확인 절차 */
+.question_list{display:flex; flex-direction:column; gap:40px; margin-top:60px;}
+.question_list li{display:flex; flex-direction:column; gap:20px;}
+.question_list p{font-size:28px; font-weight:500; color:#222; line-height:1.4;}
+.answer_btns{display:flex; justify-content:center; gap:20px;}
+.answer_btn{width:180px; height:70px; border:none; border-radius:16px; font-size:24px; font-weight:600; background:#EAEAEA; color:#222; transition:0.15s;}
+.answer_btn:active{transform:scale(0.96);}
+.answer_btn.active{background:#0D0B61; color:#fff;}
+
+
+/* 팝업 */
+.popup{display:none; justify-content:center; align-items:center; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:999;}
+.popup.active{display:flex;}
+.popup_box{padding:50px 40px; width:500px; border-radius:24px; background:#fff; text-align:center;}
+.popup_box p{font-size:28px; font-weight:500; color:#222; line-height:1.5;}
+.popup_box button{margin-top:30px; width:100%; height:70px; border:none; border-radius:16px; background:#0D0B61; color:#fff; font-size:24px; font-weight:600;}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-2px);
+    }
 }
 
-.atm-container {
-    width: 90%;
-    max-width: 600px;
-    text-align: center;
-}
+.password_dots {display: flex; justify-content: center; gap: 15px; margin-top: 20px;}
 
-.screen {
-    background: #2d2d2d;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
-    margin-bottom: 30px;
-    color: white;
-}
+.dot {width: 20px; height: 20px; border: 2px solid #aaa; border-radius: 50%;}
 
-.password-dots {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.dot {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #aaa;
-    border-radius: 50%;
-}
-
-.dot.active {
-    background-color: #00ff00;
-    border-color: #00ff00;
-}
+.dot.active {background-color: #00ff00; border-color: #00ff00;}
 
 .keypad {
     display: grid;
@@ -49,35 +63,5 @@ body {
     gap: 15px;
 }
 
-button {
-    height: 80px;
-    font-size: 24px;
-    border-radius: 15px;
-    border: none;
-    background: #3d3d3d;
-    color: white;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-button:active {
-    background: #555;
-}
-
 .clear { background: #ff4d4d; }
 .enter { background: #4caf50; }
-
-/* 모든 화면은 기본적으로 숨김 */
-.screen {
-    display: none;
-    width: 100%;
-    height: 100vh;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-/* active 클래스가 붙은 화면만 노출 */
-.screen.active {
-    display: flex;
-}

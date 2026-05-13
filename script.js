@@ -1,3 +1,5 @@
+let popupCallback = null;
+
 // 화면 전환 함수
 function nextStep(stepNumber) {
     // 모든 화면 숨기기
@@ -5,11 +7,26 @@ function nextStep(stepNumber) {
         screen.classList.remove('active');
     });
     // 목표 화면 보여주기
-    document.getElementById('step-' + stepNumber).classList.add('active');
+    document.getElementById('step_' + stepNumber).classList.add('active');
 }
 
+
+const answerButtons = document.querySelectorAll('.answer_btn');
+
+answerButtons.forEach(button => {
+    button.addEventListener('click', () => {
+
+        const parent = button.parentElement;
+        const siblings = parent.querySelectorAll('.answer_btn');
+
+        siblings.forEach(btn => btn.classList.remove('active'));
+
+        button.classList.add('active');
+    });
+});
+
+
 let input = "";
-const correctPassword = "0511"; // 아버님 생신이나 기념일로 설정하세요!
 
 function pressKey(num) {
     if (input.length < 4) {
@@ -34,24 +51,79 @@ function updateDots() {
     });
 }
 
-function checkPassword() {
-    if (input === correctPassword) {
-        document.getElementById('message').innerText = "출금 성공! 아빠 사랑해요 ♥";
-        document.querySelector('.screen').style.background = "#004d00";
-        // 여기서 실제 ATM 소리를 재생하거나 다음 단계 이미지를 보여줄 수 있습니다.
-    } else {
-        alert("비밀번호가 틀렸습니다. 다시 입력해 주세요!");
-        clearKeys();
-    }
-}
-
 // 기존 비밀번호 로직 수정
 function checkPassword() {
     const correctPassword = "0511"; // 원하는 비밀번호로 수정
     if (input === correctPassword) {
-        nextStep(5); // 비밀번호 맞으면 바로 5번(축하) 화면으로!
+        nextStep(4); // 비밀번호 맞으면 바로 5번(축하) 화면으로!
     } else {
-        alert("비밀번호가 틀렸습니다. 다시 입력해 주세요!");
+        openPopup("비밀번호가 틀렸습니다.\n다시 입력해 주세요!");
         clearKeys();
     }
+}
+
+function openPopup(message, callback = null){
+    document.querySelector('.popup_text').innerText = message;
+    popupCallback = callback;
+
+    document.getElementById('popup').classList.add('active');
+}
+
+function closePopup(){
+    document.getElementById('popup').classList.remove('active');
+
+    if(popupCallback){
+        popupCallback();
+        popupCallback = null;
+    }
+}
+function checkAnswers(){
+
+    const questions = document.querySelectorAll('.answer_btns');
+
+    let unanswered = false;
+    let hasNo = false;
+
+    questions.forEach(question => {
+
+        const activeButton = question.querySelector('.answer_btn.active');
+
+        // 선택 안 한 경우
+        if(!activeButton){
+            unanswered = true;
+        }
+
+        // NO 선택한 경우
+        else if(activeButton.classList.contains('no')){
+            hasNo = true;
+        }
+
+    });
+
+    // 선택 안 한 항목 존재
+    if(unanswered){
+        openPopup("모든 항목을 선택해주세요.");
+        return;
+    }
+
+    // NO 선택 존재
+    if(hasNo){
+
+    openPopup(
+        "본인 인증에 실패하였습니다.\n\n당신은 라종근이 아닙니다.",
+        () => {
+            nextStep(1);
+
+            // 선택 초기화
+            document.querySelectorAll('.answer_btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+        }
+    );
+    return;
+}
+
+    // 전부 YES
+    nextStep(3);
 }
