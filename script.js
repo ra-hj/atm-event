@@ -6,8 +6,17 @@ function nextStep(stepNumber) {
     document.querySelectorAll('.screen').forEach(screen => {
         screen.classList.remove('active');
     });
+
     // 목표 화면 보여주기
     document.getElementById('step_' + stepNumber).classList.add('active');
+
+    // step_2 진입 시 스크롤 초기화
+    if(stepNumber === 2){
+        requestAnimationFrame(() => {
+            document.querySelector('.question_list').scrollTop = 0;
+        });
+
+    }
 }
 
 
@@ -29,14 +38,26 @@ answerButtons.forEach(button => {
 let input = "";
 
 function pressKey(num) {
-    if (input.length < 4) {
+    if (input.length < 6) {
+
         input += num;
         updateDots();
+
+        if(input.length === 6){
+            setTimeout(() => {
+                checkPassword();
+            }, 50);
+        }
     }
 }
 
 function clearKeys() {
     input = "";
+    updateDots();
+}
+
+function deleteKey() {
+    input = input.slice(0, -1);
     updateDots();
 }
 
@@ -53,12 +74,18 @@ function updateDots() {
 
 // 기존 비밀번호 로직 수정
 function checkPassword() {
-    const correctPassword = "0511"; // 원하는 비밀번호로 수정
+    const correctPassword = "000000"; // 원하는 비밀번호로 수정
     if (input === correctPassword) {
         nextStep(4); // 비밀번호 맞으면 바로 5번(축하) 화면으로!
     } else {
-        openPopup("비밀번호가 틀렸습니다.\n다시 입력해 주세요!");
-        clearKeys();
+        const passwordDots = document.getElementById('password_dots');
+
+        passwordDots.classList.add('error');
+
+        setTimeout(() => {
+            passwordDots.classList.remove('error');
+            clearKeys();
+        }, 550);
     }
 }
 
@@ -110,15 +137,14 @@ function checkAnswers(){
     if(hasNo){
 
     openPopup(
-        "본인 인증에 실패하였습니다.\n\n당신은 라종근이 아닙니다.",
+        "본인 확인에 실패하였습니다.\n\n당신은 라종근이 아닙니다.",
         () => {
-            nextStep(1);
+           nextStep(1);
 
             // 선택 초기화
             document.querySelectorAll('.answer_btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-
         }
     );
     return;

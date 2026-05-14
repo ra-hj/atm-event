@@ -13,7 +13,7 @@
         </header>
         <div class="atm_container">
             <!-- STEP 1: 메인 화면 -->
-            <section id="step_1" class="screen active">
+            <section id="step_1" class="screen">
                 <div class="main_title">
                     <h2>사랑합니다 <strong>라종근</strong> 고객님</h2>
                     <p>환갑기념 출금 서비스를 이용하시려면<br>아래 '출금하기' 버튼을 눌러주세요.</p>
@@ -29,8 +29,10 @@
             <!-- STEP 2: 본인 인증 절차 -->
             <section id="step_2" class="screen">
                 <div class="display_area">
-                    <h2>본인 인증 절차</h2>
-
+                    <div class="sub_title">
+                        <h2>본인 확인 절차</h2>
+                        <p>본인 확인을 위해 아래 5개 문항에 답변해주세요.</p>
+                    </div>
                     <ul class="question_list">
                         <li>
                             <p>01. 라종근 본인이 맞습니까?</p>
@@ -55,6 +57,23 @@
                                 <button class="answer_btn no">NO</button>
                             </div>
                         </li>
+
+                        <li>
+                            <p>04. 앞으로도 오래오래 건강하실 예정입니까?</p>
+                            <div class="answer_btns">
+                                <button class="answer_btn yes">YES</button>
+                                <button class="answer_btn no">NO</button>
+                            </div>
+                        </li>
+
+                        <li>
+                            <p>05. 앞으로도 오래오래 건강하실 예정입니까?</p>
+                            <div class="answer_btns">
+                                <button class="answer_btn yes">YES</button>
+                                <button class="answer_btn no">NO</button>
+                            </div>
+                        </li>
+
                     </ul>
                 </div>
 
@@ -62,10 +81,15 @@
             </section>
 
             <!-- STEP 3: 비밀번호 입력 -->
-            <section id="step_3" class="screen">
+            <section id="step_3" class="screen active">
                 <div class="display_area">
-                    <h2 id="message">비밀번호 4자리를 입력하세요</h2>
-                    <div class="password_dots">
+                    <div class="sub_title">
+                        <h2>비밀번호 입력</h2>
+                        <p>비밀번호 6자리를 입력해주세요.</p>
+                    </div>
+                    <div class="password_dots" id="password_dots">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
                         <span class="dot"></span>
                         <span class="dot"></span>
                         <span class="dot"></span>
@@ -82,9 +106,9 @@
                     <button onclick="pressKey(7)">7</button>
                     <button onclick="pressKey(8)">8</button>
                     <button onclick="pressKey(9)">9</button>
-                    <button class="clear" onclick="clearKeys()">취소</button>
+                    <button class="delete" onclick="deleteKey()">삭제</button>
                     <button onclick="pressKey(0)">0</button>
-                    <button class="enter" onclick="checkPassword()">확인</button>
+                    <button class="clear" onclick="clearKeys()">전체삭제</button>
                 </div>
             </section>
 
