@@ -1,3 +1,8 @@
+document.documentElement.requestFullscreen();
+console.log(window.innerWidth, window.innerHeight);
+document.getElementById('size').innerText =
+window.innerWidth + " x " + window.innerHeight;
+
 let popupCallback = null;
 
 // 화면 전환 함수
