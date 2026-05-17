@@ -1,160 +1,279 @@
-document.documentElement.requestFullscreen();
-console.log(window.innerWidth, window.innerHeight);
-document.getElementById('size').innerText =
-window.innerWidth + " x " + window.innerHeight;
+window.addEventListener('load', () => {
+    window.scrollTo(0,0);
+});
 
 let popupCallback = null;
 
-// 화면 전환 함수
-function nextStep(stepNumber) {
-    // 모든 화면 숨기기
+let input = "";
+
+// CAPTCHA 데이터
+const captchaData = [
+
+    {
+        title : "진짜 신서방을 골라주세요.",
+        correct : 1
+    },
+
+    {
+        title : "진짜 왕서방을 골라주세요.",
+        correct : 5
+    },
+
+    {
+        title : "진짜 와이프를 찾으세요.",
+        correct : 1
+    }
+
+];
+
+let currentCaptcha = 0;
+
+// 화면 전환
+function nextStep(stepNumber){
+
     document.querySelectorAll('.screen').forEach(screen => {
         screen.classList.remove('active');
     });
 
-    // 목표 화면 보여주기
-    document.getElementById('step_' + stepNumber).classList.add('active');
+    document
+    .getElementById('step_' + stepNumber)
+    .classList.add('active');
+}
 
-    // step_2 진입 시 스크롤 초기화
-    if(stepNumber === 2){
-        requestAnimationFrame(() => {
-            document.querySelector('.question_list').scrollTop = 0;
-        });
+// 팝업 열기
+function openPopup(message, callback = null){
 
+    document.querySelector('.popup_text').innerText =
+    message;
+
+    popupCallback = callback;
+
+    document
+    .getElementById('popup')
+    .classList.add('active');
+}
+
+// 팝업 닫기
+function closePopup(){
+
+    document
+    .getElementById('popup')
+    .classList.remove('active');
+
+    if(popupCallback){
+
+        popupCallback();
+
+        popupCallback = null;
     }
 }
 
+// 숫자 입력
+function pressKey(num){
 
-const answerButtons = document.querySelectorAll('.answer_btn');
-
-answerButtons.forEach(button => {
-    button.addEventListener('click', () => {
-
-        const parent = button.parentElement;
-        const siblings = parent.querySelectorAll('.answer_btn');
-
-        siblings.forEach(btn => btn.classList.remove('active'));
-
-        button.classList.add('active');
-    });
-});
-
-
-let input = "";
-
-function pressKey(num) {
-    if (input.length < 6) {
+    if(input.length < 6){
 
         input += num;
+
         updateDots();
 
+        // 6자리 입력 시 자동 확인
         if(input.length === 6){
+
             setTimeout(() => {
+
                 checkPassword();
-            }, 50);
+
+            }, 100);
         }
     }
 }
 
-function clearKeys() {
+// 전체 삭제
+function clearKeys(){
+
     input = "";
+
     updateDots();
 }
 
-function deleteKey() {
+// 한 글자 삭제
+function deleteKey(){
+
     input = input.slice(0, -1);
+
     updateDots();
 }
 
-function updateDots() {
-    const dots = document.querySelectorAll('.dot');
+// dot 업데이트
+function updateDots(){
+
+    const dots =
+    document.querySelectorAll('.dot');
+
     dots.forEach((dot, index) => {
-        if (index < input.length) {
+
+        if(index < input.length){
+
             dot.classList.add('active');
-        } else {
+
+        }else{
+
             dot.classList.remove('active');
         }
     });
 }
 
-// 기존 비밀번호 로직 수정
-function checkPassword() {
-    const correctPassword = "000000"; // 원하는 비밀번호로 수정
-    if (input === correctPassword) {
-        nextStep(4); // 비밀번호 맞으면 바로 5번(축하) 화면으로!
-    } else {
-        const passwordDots = document.getElementById('password_dots');
+// 비밀번호 확인
+function checkPassword(){
 
-        passwordDots.classList.add('error');
+    const correctPassword = "000000";
 
-        setTimeout(() => {
-            passwordDots.classList.remove('error');
-            clearKeys();
-        }, 550);
-    }
-}
+    // 정답
+    if(input === correctPassword){
 
-function openPopup(message, callback = null){
-    document.querySelector('.popup_text').innerText = message;
-    popupCallback = callback;
+        nextStep(3);
 
-    document.getElementById('popup').classList.add('active');
-}
-
-function closePopup(){
-    document.getElementById('popup').classList.remove('active');
-
-    if(popupCallback){
-        popupCallback();
-        popupCallback = null;
-    }
-}
-function checkAnswers(){
-
-    const questions = document.querySelectorAll('.answer_btns');
-
-    let unanswered = false;
-    let hasNo = false;
-
-    questions.forEach(question => {
-
-        const activeButton = question.querySelector('.answer_btn.active');
-
-        // 선택 안 한 경우
-        if(!activeButton){
-            unanswered = true;
-        }
-
-        // NO 선택한 경우
-        else if(activeButton.classList.contains('no')){
-            hasNo = true;
-        }
-
-    });
-
-    // 선택 안 한 항목 존재
-    if(unanswered){
-        openPopup("모든 항목을 선택해주세요.");
         return;
     }
 
-    // NO 선택 존재
-    if(hasNo){
+    // 오답
+    const passwordDots =
+    document.getElementById('password_dots');
 
-    openPopup(
-        "본인 확인에 실패하였습니다.\n\n당신은 라종근이 아닙니다.",
-        () => {
-           nextStep(1);
+    const passwordText =
+    document.getElementById('password_text');
 
-            // 선택 초기화
-            document.querySelectorAll('.answer_btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-        }
-    );
-    return;
+    passwordText.innerText =
+    "비밀번호가 일치하지 않습니다.";
+
+    passwordDots.classList.add('error');
+
+    passwordText.classList.add('error_text');
+
+    setTimeout(() => {
+
+        passwordDots.classList.remove('error');
+
+        passwordText.classList.remove('error_text');
+
+        clearKeys();
+
+        passwordText.innerText =
+        "본인 확인을 위해 비밀번호 6자리를 입력해주세요.";
+
+    }, 700);
 }
 
-    // 전부 YES
-    nextStep(3);
+// CAPTCHA 시작
+function startCaptcha(){
+
+    currentCaptcha = 0;
+
+    nextStep(4);
+
+    renderCaptcha();
+}
+
+// CAPTCHA 렌더
+function renderCaptcha(){
+
+    const quizCount =
+    document.getElementById('quiz_count');
+
+    const progressFill =
+    document.getElementById('progress_fill');
+
+    const captchaTitle =
+    document.getElementById('captcha_title');
+
+    const captchaGrid =
+    document.getElementById('captcha_grid');
+
+    const data =
+    captchaData[currentCaptcha];
+
+    quizCount.innerText =
+    `추가 인증 (${currentCaptcha + 1} / 3)`;
+
+    progressFill.style.width =
+    `${((currentCaptcha + 1) / 3) * 100}%`;
+
+    captchaTitle.innerText =
+    data.title;
+
+    captchaGrid.innerHTML = "";
+
+    // 이미지 번호 배열
+        const randomImages = [1,2,3,4,5,6];
+
+        // Fisher-Yates 셔플
+        for(let i = randomImages.length - 1; i > 0; i--){
+
+            const j = Math.floor(Math.random() * (i + 1));
+
+            [randomImages[i], randomImages[j]] =
+            [randomImages[j], randomImages[i]];
+        }
+
+        // 정답 이미지 번호
+        const correctImage = data.correct;
+
+
+        // 이미지 6개 생성
+        for(let i = 0; i < 6; i++){
+
+            const item =
+            document.createElement('button');
+
+            item.classList.add('captcha_item');
+
+            item.innerHTML =
+            `<img src="./images/captcha/${currentCaptcha + 1}_${randomImages[i]}.jpg">`;
+
+            item.onclick = () => {
+
+                // 정답
+                if(randomImages[i] === correctImage){
+
+                    item.classList.add('correct');
+
+                    setTimeout(() => {
+
+                        currentCaptcha++;
+
+                        if(currentCaptcha < captchaData.length){
+
+                            renderCaptcha();
+
+                        }else{
+
+                            nextStep(5);
+                        }
+
+                    }, 700);
+
+                }else{
+
+                    // 오답
+                    item.classList.add('correct');
+
+                    setTimeout(() => {
+
+                        item.classList.remove('correct');
+
+                        item.classList.add('wrong');
+
+                        setTimeout(() => {
+
+                            item.classList.remove('wrong');
+
+                        }, 500);
+
+                    }, 600);
+                }
+            };
+
+            captchaGrid.appendChild(item);
+        }
 }
