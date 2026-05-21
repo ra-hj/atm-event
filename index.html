@@ -23,7 +23,7 @@
     <div class="atm_container">
 
         <!-- STEP 1 -->
-        <section id="step_1" class="screen active">
+        <section id="step_1" class="screen">
 
             <div class="main_title">
 
@@ -57,7 +57,6 @@
             <div class="display_area">
 
                 <div class="sub_title">
-
                     <h2>비밀번호 입력</h2>
                     <p id="password_text">본인 확인을 위해 비밀번호 6자리를 입력해주세요.</p>
                 </div>
@@ -185,23 +184,25 @@
 
 
         <!-- STEP 5 -->
-        <section id="step_5" class="screen">
+        <section id="step_5" class="screen active">
 
             <div class="display_area">
+                <div class="sub_title">
+                <h2>본인인증이 완료되었습니다!</h2>
+                    <p class="blink">
+                        IC카드를 인식 대기 중입니다...
+                    </p>
+                </div>
 
-                <h2>카드를 투입구에 넣어주세요</h2>
-
-                <div class="card_icon">💳</div>
-
-                <p class="blink">
-                    IC카드를 인식 대기 중입니다...
-                </p>
-
+                <div class="card_wrap">
+                    <img class="icon_card" src="./images/card.png" alt="카드 이미지">
+                </div>
             </div>
-
+            
+            <!-- 
             <button class="main_btn" onclick="nextStep(6)">
                 카드 인식 완료
-            </button>
+            </button> -->
 
         </section>
 

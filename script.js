@@ -10,17 +10,17 @@ let input = "";
 const captchaData = [
 
     {
-        title : "진짜 신서방을 골라주세요.",
+        title : "진짜 신동철을 골라주세요.",
         correct : 1
     },
 
     {
-        title : "진짜 왕서방을 골라주세요.",
-        correct : 5
+        title : "진짜 왕승리를 골라주세요.",
+        correct : 1
     },
 
     {
-        title : "진짜 와이프를 찾으세요.",
+        title : "진짜 김학순을 골라주세요.",
         correct : 1
     }
 
@@ -219,6 +219,8 @@ function renderCaptcha(){
         // 정답 이미지 번호
         const correctImage = data.correct;
 
+        // 처음엔 아무것도 안 누른 상태 false로 시작
+        let isProcessing = false;
 
         // 이미지 6개 생성
         for(let i = 0; i < 6; i++){
@@ -233,6 +235,12 @@ function renderCaptcha(){
 
             item.onclick = () => {
 
+                // 이미 눌러서 처리 중(true)이면 아래 코드는 실행 X
+                if (isProcessing) return; 
+
+                // 방금 클릭했으니 처리 중(true) 상태 잠금.
+                isProcessing = true;
+                
                 // 정답
                 if(randomImages[i] === correctImage){
 
@@ -267,7 +275,8 @@ function renderCaptcha(){
                         setTimeout(() => {
 
                             item.classList.remove('wrong');
-
+                        // 오답 흔들림 애니메이션까지 다 끝났으니, 다시 누를 수 있게 잠금을 풀기
+                        isProcessing = false;
                         }, 500);
 
                     }, 600);
