@@ -71,8 +71,18 @@ header{position:absolute; top:30px; right:3%;}
 
 .fail_text{margin-top:40px; font-size:28px; line-height:1.6; text-align:center; color:#555;}
 
-.card_wrap { position: relative; display: flex; justify-content: center; margin-top: 50px; }
-.card_wrap .icon_card { width: 350px; transform: perspective(800px) translateY(-60px) rotateX(-15deg) rotateZ(-84deg); animation: insertCard 2s ease-in-out infinite; }
+/* .card_wrap {position:relative; display:flex; justify-content:center;}
+.card_wrap .card_reader{width:320px;object-fit:contain;}
+.card_wrap .icon_card {position:absolute; width:350px; transform: perspective(800px) translateY(20px) translateZ(180px) rotateX(65deg) rotateZ(96deg); animation: insertCard 2s ease-in infinite; } */
+
+.card_wrap{position:relative; display:flex; justify-content:center;}
+.card_wrap .card_reader{width:320px; object-fit:contain;}
+.card_wrap .icon_card{position:absolute; width:350px; transform:perspective(800px) translateY(20px) translateZ(180px) rotateX(63deg) rotateZ(96deg); animation:insertCard 4.5s ease-in-out infinite;}
+
+.card_particle{position:absolute; top:50%; left:50%; width:240px; height:240px; transform:translate(-50%,-50%); pointer-events:none;}
+.card_particle::before,.card_particle::after{content:"✨"; position:absolute; font-size:42px; opacity:0; animation:particleBurst 4.5s ease-in-out infinite;}
+.card_particle::before{left:20px; top:80px;}
+.card_particle::after{right:20px; top:40px; animation-delay:0.15s;}
 
 .blink{margin-top:40px; font-size:22px; color:#0D0B61; text-align:center; animation:blink 1s infinite;}
 
@@ -83,7 +93,6 @@ header{position:absolute; top:30px; right:3%;}
 .amount_text{margin-top:20px; font-size:32px; line-height:1.5; color:#0D0B61; text-align:center;}
 
 .popup{display:none; justify-content:center; align-items:center; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:999;}
-
 .popup.active{display:flex;}
 
 .popup_box{padding:50px 40px; width:500px; border-radius:24px; background:#fff; text-align:center; box-shadow:0 0 15px -3px #d8d8d8;}
@@ -128,9 +137,44 @@ header{position:absolute; top:30px; right:3%;}
     0%,100%{opacity:0.4;}
     50%{opacity:1;}}
 
+    
+/* 카드가 화면 안쪽으로 꽂히는 움직임을 표현하는 애니메이션 */
+/* @keyframes insertCard {
+    0% { opacity: 1; transform: perspective(800px) translateY(20px) translateZ(180px) rotateX(63deg) rotateZ(96deg); }
+    100% { opacity: 1; transform: perspective(800px) translateY(0px) translateZ(80px) rotateX(63deg) rotateZ(96deg); }
+} */
 
-/* 카드가 꽂히는 움직임을 표현하는 애니메이션 */
 @keyframes insertCard{
-    0%{opacity:1; transform: perspective(800px) translateY(-60px) rotateX(-15deg) rotateZ(-84deg); }
-    100%{opacity:0; transform: perspective(800px) translateY(60px) rotateX(-15deg) rotateZ(-84deg); }
+
+    0%{
+        transform:perspective(800px) translateY(20px) translateZ(180px) rotateX(63deg) rotateZ(96deg);
+    }
+
+    20%{
+        transform:perspective(800px) translateY(0px) translateZ(80px) rotateX(63deg) rotateZ(96deg);
+    }
+
+    99%{
+        transform:perspective(800px) translateY(0px) translateZ(80px) rotateX(63deg) rotateZ(96deg);
+    }
+
+    100%{
+        transform:perspective(800px) translateY(20px) translateZ(180px) rotateX(63deg) rotateZ(96deg);
+    }
+}
+@keyframes particleBurst{
+    0%,20%,100%{
+        opacity:0;
+        transform:translateY(0) scale(0.6);
+    }
+
+    30%{
+        opacity:1;
+        transform:translateY(-30px) scale(1);
+    }
+
+    45%{
+        opacity:0;
+        transform:translateY(-70px) scale(1.2);
+    }
 }
