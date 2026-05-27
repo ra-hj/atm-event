@@ -242,26 +242,30 @@ function renderCaptcha(){
                 isProcessing = true;
                 
                 // 정답
-                if(randomImages[i] === correctImage){
+            if(randomImages[i] === correctImage){
+                item.classList.add('correct');
+                
+                setTimeout(() => {
+                    currentCaptcha++;
+                    if(currentCaptcha < captchaData.length){
+                        renderCaptcha(); 
+                    }else{
+                        // 🌟 대망의 마지막 캡챠를 통과했을 때!
 
-                    item.classList.add('correct');
+                        // 1. 하얀 빈 화면으로 먼저 이동합니다.
+                        nextStep('blank'); 
 
-                    setTimeout(() => {
+                        // 2. 폭죽을 팡 터뜨립니다!
+                        fireConfetti();  
 
-                        currentCaptcha++;
-
-                        if(currentCaptcha < captchaData.length){
-
-                            renderCaptcha();
-
-                        }else{
-
+                        // 3. 폭죽이 터지고 떨어지는 시간(약 2.5초)을 기다렸다가 5단계로 넘어갑니다.
+                        setTimeout(() => {
                             nextStep(5);
-                        }
+                        }, 500); // 2500 = 2.5초 (이 숫자를 늘리거나 줄여서 타이밍을 맞추세요!)
+                    }
+                }, 700);
 
-                    }, 700);
-
-                }else{
+            }else{
 
                     // 오답
                     item.classList.add('correct');
@@ -285,4 +289,29 @@ function renderCaptcha(){
 
             captchaGrid.appendChild(item);
         }
+}
+
+// [컨페티(폭죽) 효과 함수]
+function fireConfetti() {
+    // 폭죽 입자 수 설정
+    var count = 200;
+    
+    // 화면 하단(y: 0.7)에서 위로 쏘아 올리도록 설정, 맨 위에 보이게 zIndex 높임
+    var defaults = {
+        origin: { y: 0.7 },
+        zIndex: 9999
+    };
+
+    function fire(particleRatio, opts) {
+        confetti(Object.assign({}, defaults, opts, {
+            particleCount: Math.floor(count * particleRatio)
+        }));
+    }
+
+    // 5번에 나눠서 다양한 각도와 속도로 쏘아 올려 리얼함을 더합니다
+    fire(0.25, { spread: 26, startVelocity: 55 });
+    fire(0.2, { spread: 60 });
+    fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+    fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+    fire(0.1, { spread: 120, startVelocity: 45 });
 }

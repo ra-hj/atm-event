@@ -77,14 +77,39 @@ header{position:absolute; top:30px; right:3%;}
 
 .card_wrap{position:relative; display:flex; justify-content:center;}
 .card_wrap .card_reader{width:320px; object-fit:contain;}
-.card_wrap .icon_card{position:absolute; width:350px; transform:perspective(800px) translateX(-5px) translateY(40px) translateZ(180px) rotateX(63deg) rotateZ(96deg); animation:insertCard 4.5s ease-in-out infinite;}
+.card_wrap .icon_card{position:absolute; width:350px; transform:perspective(800px) translateX(-5px) translateY(40px) translateZ(180px) rotateX(63deg) rotateZ(96deg); animation:insertCard 3.0s ease-in-out infinite;}
 
 .card_particle{position:absolute; top:50%; left:50%; width:240px; height:240px; transform:translate(-50%,-50%); pointer-events:none;}
-.card_particle::before,.card_particle::after{content:"✨"; position:absolute; font-size:42px; opacity:0; animation:particleBurst 4.5s ease-in-out infinite;}
-.card_particle::before{left:20px; top:80px;}
-.card_particle::after{right:20px; top:40px; animation-delay:0.15s;}
+.card_particle::before,.card_particle::after{content:""; display:block; position:absolute; width:100px; height:100px; opacity:0; background:url(./images/icon_particle.png) no-repeat 50% 50% / cover; animation:particleBurst 3.0s ease-in-out infinite;}
+.card_particle::before{left:0px; top:90px;}
+.card_particle::after{right:0px; top:30px; animation-delay:0.15s;}
 
 .blink{margin-top:40px; font-size:22px; color:#0D0B61; text-align:center; animation:blink 1s infinite;}
+
+/* --- STEP 6 : 롤링 갤러리 --- */
+#step_6 .display_area { width: 100vw; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.rolling_gallery { position: relative; width: 100%; height: 500px; overflow: hidden; margin-bottom: 50px; display: flex; align-items: center; }
+.rolling_track { display: flex; gap: 40px; width: max-content; animation: rolling 20s linear infinite; }
+.gallery_item { width: 200px; height: 280px; border-radius: 16px; overflow: hidden; box-shadow: 0 15px 25px rgba(0,0,0,0.15); flex-shrink: 0; }
+.gallery_item img { width: 100%; height: 100%; object-fit: cover; }
+
+/* 갤러리 부채꼴 형태 각도 조절 */
+.gallery_item:nth-child(5n+1) { transform: translateY(50px) rotate(-12deg); }
+.gallery_item:nth-child(5n+2) { transform: translateY(10px) rotate(-6deg); }
+.gallery_item:nth-child(5n+3) { transform: translateY(-30px) rotate(0deg); }
+.gallery_item:nth-child(5n+4) { transform: translateY(10px) rotate(6deg); }
+.gallery_item:nth-child(5n+5) { transform: translateY(50px) rotate(12deg); }
+
+/* --- STEP 6 : 텍스트 스타일링 --- */
+#step_6 .final_message { text-align: center; display: flex; flex-direction: column; gap: 15px; }
+#step_6 .final_message p { font-size: 26px; color: #555; font-weight: 500; }
+#step_6 .final_message h2 { font-size: 48px; color: #0D0B61; font-weight: 700; }
+
+/* 트랙이 왼쪽으로 이동하는 애니메이션 */
+@keyframes rolling {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-50% - 20px)); } 
+}
 
 .final_message{margin-top:50px; display:flex; flex-direction:column; gap:20px;}
 
@@ -102,6 +127,8 @@ header{position:absolute; top:30px; right:3%;}
 .popup_box button{margin-top:50px; width:100%; height:70px; border-radius:12px; background:#0D0B61; font-size:22px; font-weight:600; color:#fff; transition:0.08s ease;}
 
 .popup_box button:active{transform:scale(0.97);}
+
+
 
 @keyframes bounce{
     0%,70%,100%{transform:translateY(0);}
@@ -151,11 +178,11 @@ header{position:absolute; top:30px; right:3%;}
     }
 
     20%{
-        transform:perspective(800px) translateX(-5px) translateY(5px) translateZ(100px) rotateX(63deg) rotateZ(96deg);
+        transform:perspective(800px) translateX(-5px) translateY(5px) translateZ(50px) rotateX(63deg) rotateZ(96deg);
     }
 
     99%{
-        transform:perspective(800px) translateX(-5px) translateY(5px) translateZ(100px) rotateX(63deg) rotateZ(96deg);
+        transform:perspective(800px) translateX(-5px) translateY(5px) translateZ(50px) rotateX(63deg) rotateZ(96deg);
     }
 
     100%{
