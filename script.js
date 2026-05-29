@@ -109,7 +109,7 @@ function nextStep(stepNumber){
         // 2. 노래 교체하고 재생하기
         const bgm = document.getElementById('birthday_bgm');
         if(bgm) {
-            bgm.src = './music_birthday.mp3'; // 🌟 6단계용 생일 노래로 파일 교체!
+            bgm.src = './audio/music_birthday.mp3'; // 🌟 6단계용 생일 노래로 파일 교체!
             bgm.volume = 0.5;                 // 🌟 볼륨을 다시 100%로 빵빵하게 키움!
             
             bgm.play().catch(error => {
