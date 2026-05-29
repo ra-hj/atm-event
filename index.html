@@ -7,6 +7,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
 
+    <link rel="preload" href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/Shilla_CultureB-Bold.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/Shilla_CultureM-Medium.woff2" as="font" type="font/woff2" crossorigin>
+
     <title>환갑 축하 ATM</title>
 
     <link rel="stylesheet" href="style.css?ver=1.0">
@@ -16,15 +19,15 @@
 
 <div class="wrap">
 
-    <header>
-        <h1 class="logo">RJG BANK</h1>
-    </header>
+    
 
     <div class="atm_container">
 
         <!-- STEP 1 -->
         <section id="step_1" class="screen active">
-
+            <header>
+                    <h1 class="logo">RJG BANK</h1>
+                </header>
             <div class="main_title">
 
                 <h2>
@@ -133,7 +136,7 @@
         <section id="step_4" class="screen">
 
             <div class="display_area">
-
+ 
                 <p class="quiz_count" id="quiz_count">
                     추가 인증 1 / 3
                 </p>
@@ -178,7 +181,7 @@
                 <div class="card_wrap">
                     <img class="card_reader" src="./images/card_reader.png" alt="카드 리더기">
                     <img class="icon_card" src="./images/card.png" alt="카드 이미지">
-                    <div class="card_particle"></div>
+                    <!-- <div class="card_particle"></div> -->
                 </div>
             </div>
             
@@ -193,34 +196,44 @@
        <section id="step_6" class="screen">
             
             <div class="display_area">
+
+                
+                <div class="final_message">
+                    <h2>세상 누구보다 열심히 살아오신<br><em>60</em>년의 <strong>세월</strong> 존경하고 사랑합니다.</h2>
+                    <p>라종근님의 환갑을 축하드려요</p>
+                </div>
+
                 
                 <div class="rolling_gallery">
                     <div class="rolling_track">
-                        <div class="gallery_item"><img src="./images/captcha/1_1.jpg" alt="아빠사진"></div>
-                        <div class="gallery_item"><img src="./images/captcha/1_2.jpg" alt="아빠사진"></div>
-                        <div class="gallery_item"><img src="./images/captcha/1_3.jpg" alt="아빠사진"></div>
-                        <div class="gallery_item"><img src="./images/captcha/1_4.jpg" alt="아빠사진"></div>
-                        <div class="gallery_item"><img src="./images/captcha/1_6.jpg" alt="아빠사진"></div>
+                        <div class="gallery_item"><img src="./images/gallery/1_1.jpg" alt="아빠사진"></div>
+                        <div class="gallery_item"><img src="./images/gallery/1_2.jpg" alt="아빠사진"></div>
+                        <div class="gallery_item"><img src="./images/gallery/1_3.jpg" alt="아빠사진"></div>
+                        <div class="gallery_item"><img src="./images/gallery/1_4.jpg" alt="아빠사진"></div>
+                        <div class="gallery_item"><img src="./images/gallery/1_5.jpg" alt="아빠사진"></div>
+                        <div class="gallery_item"><img src="./images/gallery/1_6.jpg" alt="아빠사진"></div>
                         
-                        <div class="gallery_item"><img src="./images/captcha/1_1.jpg" alt="아빠사진"></div>
-                        <div class="gallery_item"><img src="./images/captcha/1_2.jpg" alt="아빠사진"></div>
-                        <div class="gallery_item"><img src="./images/captcha/1_3.jpg" alt="아빠사진"></div>
-                        <div class="gallery_item"><img src="./images/captcha/1_4.jpg" alt="아빠사진"></div>
-                        <div class="gallery_item"><img src="./images/captcha/1_6.jpg" alt="아빠사진"></div>
+                        <div class="gallery_item v"><img src="./images/gallery/1_7.jpg" alt="아빠사진"></div>
+                        <div class="gallery_item v"><img src="./images/gallery/1_8.jpg" alt="아빠사진"></div>
+                        <div class="gallery_item v"><img src="./images/gallery/1_9.jpg" alt="아빠사진"></div>
+                        <div class="gallery_item"><img src="./images/gallery/1_10.jpg" alt="아빠사진"></div>
+                        <div class="gallery_item"><img src="./images/gallery/1_11.jpg" alt="아빠사진"></div>
+                        <div class="gallery_item"><img src="./images/gallery/1_12.jpg" alt="아빠사진"></div>
                     </div>
                 </div>
-
-                <div class="final_message">
-                    <p>인생은 60부터!</p>
-                    <h2>축하드립니다</h2>
-                </div>
-
             </div>
 
+            <audio id="birthday_bgm" src="./audio/music_birhday.mp3" loop></audio>
         </section>
 
     </div>
 
+    <div id="correct_overlay" class="correct_overlay">
+    <div class="overlay_content">
+        <div class="loading_spinner"></div>
+        <div class="check_mark" style="display:none;"></div>
+    </div>
+</div>
 </div>
 
 
@@ -240,7 +253,7 @@
 </div>
 
 <script src="script.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
 </body>
 </html>
