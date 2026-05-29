@@ -1,6 +1,12 @@
 window.addEventListener('load', () => {
     window.scrollTo(0,0);
 
+    const bgm = document.getElementById('birthday_bgm');
+    if (bgm) {
+        bgm.pause();       // 일단 멈춰!
+        bgm.currentTime = 0; // 처음으로 되감기 해놔!
+    }
+
     // 🌟 [일자형 무한 컨베이어 벨트 + 랜덤 배치 세팅]
     const track = document.querySelector('.rolling_track');
 
@@ -197,7 +203,7 @@ function updateDots(){
 // 비밀번호 확인
 function checkPassword(){
 
-    const correctPassword = "000000";
+    const correctPassword = "670215";
 
     // 정답
     if(input === correctPassword){
