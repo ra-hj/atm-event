@@ -101,14 +101,16 @@ function nextStep(stepNumber){
     .getElementById('step_' + stepNumber)
     .classList.add('active');
 
-    // 🌟 [여기서부터 추가/수정] 6단계로 넘어왔을 때의 특별 이벤트!
+    // 🌟 [수정] 6단계로 넘어왔을 때의 특별 이벤트!
     if(stepNumber === 6) {
-        // 1. 하트 눈 내리기
         fireHeartSnowConfetti('step_6');
         
-        // 2. BGM 재생하기
         const bgm = document.getElementById('birthday_bgm');
         if(bgm) {
+            // 🎯 이때다! 6단계가 켜지면 비로소 음악 파일(총알)을 장전합니다.
+            bgm.src = './music_birthday.mp3'; 
+            
+            // 장전 후 발사(재생)!
             bgm.play().catch(error => {
                 console.log("브라우저 정책으로 자동재생이 막혔습니다.", error);
             });
