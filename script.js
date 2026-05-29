@@ -108,7 +108,7 @@ function nextStep(stepNumber){
         const bgm = document.getElementById('birthday_bgm');
         if(bgm) {
             // 🎯 이때다! 6단계가 켜지면 비로소 음악 파일(총알)을 장전합니다.
-            bgm.src = './music_birthday.mp3'; 
+            bgm.src = './audio/music_birthday.mp3'; 
             
             // 장전 후 발사(재생)!
             bgm.play().catch(error => {
