@@ -42,8 +42,9 @@ window.addEventListener('load', () => {
     }
 
     // 🌟 [수정] 키패드 버튼 + 메인 버튼(출금하기, 인증하기) 누를 때 소리 나게 만들기
-    const buttonSound = new Audio('./audio/button.mp3');
-    
+    //const buttonSound = new Audio('./audio/button.mp3');
+    const buttonSound = new Audio('./audio/button.MP3');
+
     // 🎯 요기가 핵심! 기존 '.keypad button' 뒤에 ', .main_btn'을 추가해서 대상을 넓혔습니다.
     const allButtons = document.querySelectorAll('.keypad button, .main_btn');
 
